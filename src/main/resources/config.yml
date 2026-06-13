@@ -1,0 +1,308 @@
+# ========================================
+# 物品品级系统配置文件
+# EquipmentGrade Plugin Configuration
+# ========================================
+# 修改后使用 /grade reload 重载配置
+# 颜色代码: &0-9, &a-f, &k-o, &r (或 §)
+# ========================================
+
+# ========================================
+# 品级定义
+# ========================================
+# 顺序决定品级高低，越靠后等级越高
+# 字段说明:
+#   id:              品级唯一标识
+#   name:            品级中文名称
+#   display-name:    带颜色的显示名
+#   attribute-bonus: 属性加成值
+#   enchant-limit:   附魔数量上限
+#   anvil-cost-limit:铁砧经验上限 达到此值触发"过于昂贵"
+#   deduction-cap:   经验扣除封顶值
+#
+# 耐久调整 = |attribute-bonus| × 50
+# 凡品以下:耐久减少; 凡品以上:耐久增加
+grades:
+  - id: WASTE
+    name: "废品"
+    display-name: "§7废品"
+    attribute-bonus: -3.0
+    enchant-limit: 0
+    anvil-cost-limit: -1
+    deduction-cap: 40
+  - id: DEFECTIVE
+    name: "残次品"
+    display-name: "§8残次品"
+    attribute-bonus: -2.0
+    enchant-limit: 1
+    anvil-cost-limit: -1
+    deduction-cap: 40
+  - id: UNRANKED
+    name: "不入品"
+    display-name: "§f不入品"
+    attribute-bonus: -1.0
+    enchant-limit: 2
+    anvil-cost-limit: -1
+    deduction-cap: 40
+  - id: COMMON
+    name: "凡品"
+    display-name: "§a凡品"
+    attribute-bonus: 0.0
+    enchant-limit: 4
+    anvil-cost-limit: -1
+    deduction-cap: 40
+  - id: LOW
+    name: "下品"
+    display-name: "§b下品"
+    attribute-bonus: 0.5
+    enchant-limit: 5
+    anvil-cost-limit: -1
+    deduction-cap: 40
+  - id: MEDIUM
+    name: "中品"
+    display-name: "§3中品"
+    attribute-bonus: 1.0
+    enchant-limit: 6
+    anvil-cost-limit: -1
+    deduction-cap: 40
+  - id: HIGH
+    name: "上品"
+    display-name: "§9上品"
+    attribute-bonus: 1.5
+    enchant-limit: 7
+    anvil-cost-limit: -1
+    deduction-cap: 40
+  - id: EXCELLENT
+    name: "极品"
+    display-name: "§d极品"
+    attribute-bonus: 2.0
+    enchant-limit: 8
+    anvil-cost-limit: 50
+    deduction-cap: -1
+  - id: PERFECT
+    name: "完美"
+    display-name: "§e完美"
+    attribute-bonus: 2.5
+    enchant-limit: -1
+    anvil-cost-limit: 75
+    deduction-cap: -1
+  - id: SPIRIT_TREASURE_1
+    name: "灵宝★"
+    display-name: "§6灵宝★"
+    attribute-bonus: 3.0
+    enchant-limit: -1
+    anvil-cost-limit: -1
+    deduction-cap: 75
+  - id: SPIRIT_TREASURE_2
+    name: "灵宝★★"
+    display-name: "§6灵宝★★"
+    attribute-bonus: 3.5
+    enchant-limit: -1
+    anvil-cost-limit: -1
+    deduction-cap: 75
+  - id: SPIRIT_TREASURE_3
+    name: "灵宝★★★"
+    display-name: "§6灵宝★★★"
+    attribute-bonus: 4.0
+    enchant-limit: -1
+    anvil-cost-limit: -1
+    deduction-cap: 75
+  - id: SUPREME_TREASURE_1
+    name: "至宝★"
+    display-name: "§5至宝★"
+    attribute-bonus: 4.5
+    enchant-limit: -1
+    anvil-cost-limit: -1
+    deduction-cap: 75
+  - id: SUPREME_TREASURE_2
+    name: "至宝★★"
+    display-name: "§5至宝★★"
+    attribute-bonus: 5.0
+    enchant-limit: -1
+    anvil-cost-limit: -1
+    deduction-cap: 75
+  - id: SUPREME_TREASURE_3
+    name: "至宝★★★"
+    display-name: "§5至宝★★★"
+    attribute-bonus: 5.5
+    enchant-limit: -1
+    anvil-cost-limit: -1
+    deduction-cap: 75
+  - id: CELESTIAL
+    name: "先天"
+    display-name: "§c先天"
+    attribute-bonus: 6.0
+    enchant-limit: -1
+    anvil-cost-limit: -1
+    deduction-cap: 75
+
+# ========================================
+# 铁砧机制
+# ========================================
+anvil:
+  # 铁砧升级概率(%)
+  upgrade-chance: 5.0
+  # 铁砧掉级概率(%)
+  downgrade-chance: 25.0
+  # 至宝★及以上掉级概率(%)
+  supreme-treasure-downgrade-chance: 2.0
+
+# ========================================
+# 自动命名
+# ========================================
+# 品级达到指定等级时 自动从命名池抽取 A+B 组合名称
+auto-name:
+  # 是否启用自动命名
+  enabled: true
+  # 触发自动命名的最低品级ID
+  min-grade: "PERFECT"
+
+# ========================================
+# Lore 显示
+# ========================================
+lore:
+  # 品级待定时显示的占位符文本
+  pending-text: "  等级: ???"
+  # 分割线样式
+  divider: "─────────────────────"
+
+# ========================================
+# 提示语
+# ========================================
+messages:
+  # 消息前缀
+  prefix: "§6[等级] §r"
+  # 无权限
+  no-permission: "§c你没有权限使用此指令"
+  # 非玩家
+  only-player: "§c只有玩家可以使用此指令"
+  # 未手持物品
+  item-not-in-hand: "§c请手持要操作的物品"
+  # 无效品级
+  invalid-grade: "§c无效的等级: %arg%"
+  # 设置成功
+  grade-set: "§a已设置物品等级为: %grade%"
+  # 移除成功
+  grade-remove: "§a已移除物品等级"
+  # 物品无等级
+  no-grade: "§c该物品没有设置等级"
+  # 配置重载成功
+  config-reloaded: "§a插件配置已重载"
+  # 品级掉落导致附魔移除
+  enchant-removed: "品级掉落,附魔数量超出上限,已移除: %enchant%"
+
+# ========================================
+# 背包扫描设置
+# ========================================
+backpack-scanner:
+  # 是否启用背包扫描
+  enabled: true
+  # 扫描间隔时间
+  interval-minutes: 60
+
+# ========================================
+# 战利品来源概率配置
+# ========================================
+# 等级顺序: 废品, 残次品, 不入品, 凡品, 下品, 中品, 上品, 极品, 完美, 灵宝★, 灵宝★★, 灵宝★★★, 至宝★, 至宝★★, 至宝★★★, 先天
+probabilities:
+
+  # ==================== 简单结构 ====================
+  
+  # 村庄箱子 - 基础简单资源
+  village: [25, 15, 12, 18, 15, 8, 4, 2, 0.5, 0.3, 0.1, 0.05, 0.03, 0.02, 0, 0]
+  
+  # 沙漠水井
+  desert-well: [25, 15, 12, 18, 15, 8, 4, 2, 0.5, 0.3, 0.1, 0.05, 0.03, 0.02, 0, 0]
+  
+  # 沉船宝箱 - 海洋探索奖励
+  shipwreck: [20, 15, 12, 18, 16, 10, 5, 2.5, 1, 0.3, 0.1, 0.05, 0.03, 0.02, 0, 0]
+
+  # ==================== 中等难度结构 ====================
+  
+  # 沙漠神殿
+  desert-temple: [15, 12, 10, 18, 18, 12, 8, 4, 1.5, 0.8, 0.4, 0.2, 0.08, 0.02, 0, 0]
+  
+  # 丛林神殿
+  jungle-temple: [15, 12, 10, 18, 18, 12, 8, 4, 1.5, 0.8, 0.4, 0.2, 0.08, 0.02, 0, 0]
+  
+  # 废弃矿井
+  mineshaft: [18, 14, 12, 20, 16, 10, 6, 2.5, 1, 0.3, 0.1, 0.05, 0.03, 0.02, 0, 0]
+  
+  # 沼泽小屋
+  swamp-hut: [20, 15, 12, 20, 15, 10, 5, 2, 0.6, 0.25, 0.1, 0.05, 0, 0, 0, 0]
+  
+  # 雪屋
+  igloo: [20, 15, 12, 20, 15, 10, 5, 2, 0.6, 0.25, 0.1, 0.05, 0, 0, 0, 0]
+  
+  # 掠夺者前哨
+  pillager-outpost: [15, 12, 10, 18, 18, 12, 8, 4, 1.5, 0.8, 0.4, 0.2, 0.08, 0.02, 0, 0]
+
+  # ==================== 较高难度结构 ====================
+  
+  # 要塞走廊
+  stronghold: [10, 10, 10, 20, 18, 14, 10, 4, 2, 1, 0.5, 0.25, 0.15, 0.08, 0.02, 0]
+  
+  # 要塞图书馆 - 额外奖励
+  stronghold-library: [8, 8, 10, 18, 18, 16, 12, 5, 2.5, 1.5, 0.6, 0.25, 0.1, 0.05, 0, 0]
+  
+  # 海底遗迹
+  ocean-ruins: [12, 10, 10, 20, 18, 14, 10, 3, 1.5, 0.8, 0.4, 0.2, 0.08, 0.02, 0, 0]
+  
+  # 沉没的遗迹
+  sunken-ship: [10, 10, 10, 20, 18, 14, 10, 4, 2, 1, 0.5, 0.25, 0.15, 0.08, 0.02, 0]
+  
+  # 林地府邸
+  woodland-mansion: [10, 10, 10, 20, 18, 14, 10, 4, 2, 1, 0.5, 0.25, 0.15, 0.08, 0.02, 0]
+  
+  # 诡异堡垒
+  fortress: [12, 10, 10, 20, 18, 14, 10, 3, 1.5, 0.8, 0.4, 0.2, 0.08, 0.02, 0, 0]
+  
+  # 藏宝图宝藏
+  buried-treasure: [10, 10, 10, 20, 18, 14, 10, 4, 2, 1, 0.5, 0.25, 0.15, 0.08, 0.02, 0]
+  
+  # 埋藏的宝藏
+  simple-dungeon: [12, 10, 10, 20, 18, 14, 10, 3, 1.5, 0.8, 0.4, 0.2, 0.08, 0.02, 0, 0]
+
+  # ==================== 高难度结构 ====================
+  
+  # 下界要塞 - 下界高价值奖励
+  nether-fortress: [8, 8, 8, 18, 18, 16, 12, 6, 3, 1.5, 0.8, 0.4, 0.2, 0.1, 0.02, 0]
+  
+  # 末地城 - 等同林地府邸
+  end-city: [10, 10, 10, 20, 18, 14, 10, 4, 2, 1, 0.5, 0.25, 0.15, 0.08, 0.02, 0]
+  
+  # 远古城市 - 顶级难度，最高至宝★★★
+  ancient-city: [5, 5, 8, 15, 18, 18, 14, 8, 4, 2, 1, 0.5, 0.3, 0.15, 0.05, 0.02]
+
+  # ==================== 末地特殊结构 ====================
+  
+  # 末地船 - 末地最珍贵奖励，有先天
+  end-ship: [5, 10, 12, 12, 13, 13, 12, 8, 5, 3.5, 2, 1, 0.3, 0.15, 0.05, 0.05]
+  
+  # 末地要塞走廊 - 末地难度最高
+  end-stronghold: [3, 8, 10, 12, 13, 13, 12, 7, 4, 3, 2, 1, 0.4, 0.2, 0.08, 0.07]
+
+  # ==================== 合成来源配置 ====================
+  
+  # 原版工作台合成 - 限制较严格
+  crafting: [15, 20, 25, 30, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  
+  # 村民交易 - 奖励较好
+  villager-trade: [0, 0, 0, 5, 15, 25, 30, 20, 4, 0.9, 0.1, 0, 0, 0, 0, 0]
+  
+  # 流浪商人交易 - 最低凡品
+  wandering-trade: [0, 0, 0, 18, 25, 25, 18, 9, 4, 1, 0, 0, 0, 0, 0, 0]
+  
+  # 钓鱼 - 奖励一般，有机会钓到好东西
+  fishing: [15, 18, 20, 25, 12, 6, 2.5, 1, 0.4, 0.08, 0.02, 0, 0, 0, 0, 0]
+  
+  # 物品展示框 - 奖励较低
+  item-frame: [20, 18, 15, 25, 12, 6, 2.5, 1, 0.4, 0.08, 0.02, 0, 0, 0, 0, 0]
+  
+  # 生物战利品掉落 - 统一设定
+  entity-drop: [10, 15, 20, 30, 15, 7, 2, 0.8, 0.15, 0.05, 0, 0, 0, 0, 0, 0]
+  
+  # 指令/give 默认 - 凡品
+  command-default: [0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  
+  # 指令/give 随机 - 随机概率分布
+  command-random: [0, 0, 0, 30, 25, 20, 15, 7, 2.5, 0.4, 0.1, 0, 0, 0, 0, 0]

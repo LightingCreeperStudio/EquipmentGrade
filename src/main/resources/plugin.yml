@@ -1,0 +1,61 @@
+name: EquipmentGrade
+version: 1.3
+main: net.LightingCreeperStudio.EquipmentGrade
+api-version: 1.21
+description: 物品等级系统插件 - 为物品添加分级属性
+author: LightingCreeperStudio
+
+commands:
+  grade:
+    description: 物品等级管理指令
+    usage: /<command> <set|remove|unknown|info>
+    aliases: [eg]
+  eqset:
+    description: 快速设置物品等级
+    usage: /<command> <物品ID> <等级> [属性] [耐久]
+
+permissions:
+  equipmentgrade.set:
+    description: 设置物品等级
+    default: op
+  equipmentgrade.remove:
+    description: 移除物品等级
+    default: op
+  equipmentgrade.unknown:
+    description: 设置未知等级物品的自定义属性
+    default: op
+  equipmentgrade.info:
+    description: 查看物品等级信息
+    default: true
+  equipmentgrade.reload:
+    description: 重载插件配置
+    default: op
+  equipmentgrade.eqset:
+    description: 快速设置物品等级
+    default: op
+  equipmentgrade.register:
+    description: 注册物品等级配置
+    default: op
+  equipmentgrade.list:
+    description: 查看已注册物品列表
+    default: op
+  equipmentgrade.apply:
+    description: 应用手中物品的注册等级
+    default: op
+  equipmentgrade.upgrade:
+    description: 升级/降级物品等级
+    default: op
+  equipmentgrade.*:
+    description: 所有物品等级权限
+    default: op
+    children:
+      equipmentgrade.set: true
+      equipmentgrade.remove: true
+      equipmentgrade.unknown: true
+      equipmentgrade.info: true
+      equipmentgrade.reload: true
+      equipmentgrade.eqset: true
+      equipmentgrade.register: true
+      equipmentgrade.list: true
+      equipmentgrade.apply: true
+      equipmentgrade.upgrade: true
