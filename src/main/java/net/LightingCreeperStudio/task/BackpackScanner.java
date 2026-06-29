@@ -95,6 +95,11 @@ public class BackpackScanner {
         if (item == null || item.getType().isAir()) {
             return false;
         }
+        // 跳过有待定品级标记的物品（处于合成/铁砧预览状态）
+        // 避免预览时被扫描器赋予凡品，导致正式合成时掷骰失效
+        if (NBTUtil.hasPendingGrade(item)) {
+            return false;
+        }
         // 只处理可升级物品且没有品级标签的
         if (!GradeItemManager.shouldGradeItem(item)) {
             return false;

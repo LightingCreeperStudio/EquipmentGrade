@@ -2,8 +2,6 @@ package net.LightingCreeperStudio.grade;
 
 import net.LightingCreeperStudio.listener.ItemGradeListener;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -626,36 +624,35 @@ public class GradeItemManager {
      * 结果会被缓存 避免重复创建临时物品
      */
     private static boolean isEquipmentMaterial(Material material) {
-        return equipmentCache.computeIfAbsent(material, GradeItemManager::checkEquipmentAttributes);
+        return equipmentCache.computeIfAbsent(material, GradeItemManager::isEquipmentType);
     }
 
     /**
-     * 实际检查材质是否具有装备属性
-     * 通过检查物品的默认属性修饰符来判断
+     * 直接根据物品类型名称判断是否为装备
+     * 适配 1.21+ 属性系统变更，不再依赖 getDefaultAttributeModifiers()
      */
-    private static boolean checkEquipmentAttributes(Material material) {
-        // 特殊情况:弓/弩/盾牌/鞘翅没有默认攻击属性
-        if (material == Material.BOW || material == Material.CROSSBOW
-                || material == Material.SHIELD || material == Material.ELYTRA) {
-            return true;
-        }
-        try {
-            ItemStack temp = new ItemStack(material);
-            if (!temp.hasItemMeta()) return false;
-            ItemMeta meta = temp.getItemMeta();
-            if (!meta.hasAttributeModifiers()) return false;
-            for (Attribute attr : meta.getAttributeModifiers().keySet()) {
-                if (attr == Attribute.ATTACK_DAMAGE
-                        || attr == Attribute.ATTACK_SPEED
-                        || attr == Attribute.ARMOR
-                        || attr == Attribute.ARMOR_TOUGHNESS) {
-                    return true;
-                }
-            }
-        } catch (Exception e) {
-            // 无效材质
-        }
-        return false;
+    private static boolean isEquipmentType(Material material) {
+        String name = material.name();
+        return name.endsWith("_SWORD")
+            || name.endsWith("_AXE")
+            || name.endsWith("_HOE")
+            || name.endsWith("_SHOVEL")
+            || name.endsWith("_PICKAXE")
+            || name.endsWith("_HELMET")
+            || name.endsWith("_CHESTPLATE")
+            || name.endsWith("_LEGGINGS")
+            || name.endsWith("_BOOTS")
+            || name.endsWith("_HORSE_ARMOR")
+            || material == Material.BOW
+            || material == Material.CROSSBOW
+            || material == Material.SHIELD
+            || material == Material.ELYTRA
+            || material == Material.TRIDENT
+            || material == Material.MACE
+            || material == Material.WOLF_ARMOR
+            || material == Material.FISHING_ROD
+            || material == Material.SHEARS
+            || material == Material.FLINT_AND_STEEL;
     }
 
     // ==================== 合成来源等级随机 ====================
